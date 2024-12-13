@@ -1,4 +1,6 @@
 # Building and linking the AWS-SDK-CPP for iOS and simulator
+![Flow chart](images/flow1.png)
+*Z. Williams - 13th December 2024*
 
 I have recently been trying to create a
 [new iOS app to track Bus locations in real-time](https://github.com/zwill22/BusTracker.git).
@@ -48,15 +50,18 @@ I thought this was the hard part.
 
 So, I have my [BusTracker app](https://github.com/zwill22/BusTracker.git) and the AWS-SDK-CPP installed on my Mac.
 I decided to write the interface to AWS-SDK-CPP as its own library,
-which after many name changes is now the [OpenID](https://github.com/zwill22/OpenID.git) library.
-The original aim behind this was to be able to import it into the BusTracker app without having to worry about
-including the AWS-SDK-CPP library directly.
+which after many name changes is now the
+[OpenID](https://github.com/zwill22/OpenID.git) library.
+The original aim behind this was to be able to import it into the BusTracker app without having to worry about including the AWS-SDK-CPP library directly.
 
 This library is pure C++ but I also provide an optional C header which is built using:
 ```
 cmake . -DC_INTERFACE=ON
 cmake --build .
 ```
+For this I would like to acknowledge a
+[brilliant article](https://medium.com/@JMangia/swift-swift-c-c-stl-9e620e471145),
+for helping me write the interface.
 After completing this library I needed to include it in the BusTracker app - simple? NO!
 
 ## Building CMake libraries for iOS and simulator
@@ -128,8 +133,64 @@ cmake . -DCMAKE_TOOLCHAIN_FILE=${IOSCMAKE_DIR}/ios.toolchain.cmake -DPLATFORM=${
 where `${AWS_INSTALL_PREFIX}/${PLATFORM}` is the location where the AWS-SDK-CPP library for the 
 respective platform was installed. 
 
-## Including the libraries in BusTracker
-
-If OpenID built correctly, there should be two static library files for each platform, `libOpenID.a`
-contains the full OpenID C++ library and `libOpenIDC.a` includes the C interface functions. Having built
+If OpenID built correctly, there should be two static library files for each
+platform, `libOpenID.a`
+contains the full OpenID C++ library and `libOpenIDC.a` includes the C interface 
+functions. The header file we need is `OpenID.h`,
+which is inside the libraries include directory. Having built
 these, all that remains is to include these in Xcode.
+
+## Including C++ libraries in a Swift project
+
+Open the XCode project settings, in the "Search paths" section, add all header file locations to "Header Search Paths". 
+
+![Xcode header search paths](images/header_search_paths.png)
+*Image showing the Header Search Paths option in the BusTracker project settings*
+
+In order to include a C header in Swift code, an objective C bridging header is required. To create this navigate to "Create new file from template.." in Xcode and choose "Header file". 
+
+![Xcode create header file](images/create_header_file.png)
+*Image showing the creation of a Header file in XCode*
+
+The file should include all header files to be used in the project, for the BusTracker example, this is simple:
+```objC
+// Bridging header file
+#import "OpenID.h"
+```
+In the case of a header only library, this would be all that is required. For a 
+library with pre-built binaries, additional steps are required. The aim is to include 
+all neccessary libraries as XCode frameworks, these act as combined libraries for
+multiple platforms similar to a FAT library but for platforms rather than
+architectures.
+
+## Creating XCFrameworks for OpenID
+
+Assuming the static libraries `libOpenID.a` and `libOpenIDC.a` have been built for
+each platform, these may be combined into XCFrameworks using the command
+```
+xcodebuild -create-xcframework -library ${OPENID_INSTALL_PREFIX}/OS64/libOpenID.a -library ${OPENID_INSTALL_PREFIX}/SIMULATORARM64/libOpenID.a -output ${OUTPUT_DIR}/libopenID.xcframework
+```
+and similarly for `libOpenIDC.a`.
+
+My original aim when creating this project was for the `libOpenIDC.a` to bundle all dependencies into a single file. Unfortunately, this is not the case, and while this may be possible, the easiest option is to convert each AWS-SDK-CPP library to an XCFramework using the above method and adding to XCode as a dependency.
+
+## Adding XCFrameworks to XCode
+
+Now that the external dependencies are converted to XCFrameworks the rest is simple. 
+Simply navigate to the project's settings choose the settings for the desired target, go to the "General" tab and find the "Frameworks, Libraries, and Embedded Content" section. Choose the `+` icon and add all the libraries to Xcode. 
+
+
+![Xcode add frameworks to project](images/add_frameworks.png)
+*Image showing the Frameworks, Libraries, and Embedded Content section in XCode*
+
+## Conclusion
+
+In a continuing effort to create an iOS app with an AWS API Gateway, I have used the
+AWS-SDK-CPP to request authentication using the Cognito Identity Provider inside a new
+project OpenID. I have built static libraries for both this project
+and the SDK for iOS and iOSSimulator on an Apple Silicon Mac.
+I have created XCFrameworks for each library and imported them into
+Xcode using an objective-C bridging header to expose the C functions to Swift.
+
+The next step is to build the Swift interface for the OpenID library and then use the
+authentication results to call the API gateway.
