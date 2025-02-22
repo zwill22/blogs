@@ -42,10 +42,15 @@ export CXXFLAGS=-std=c++17
 for platform in OS64 SIMULATORARM64 MAC_ARM64;
 do
 
+if [ ${platform} == MAC_ARM64 ]; then
+	deploymentTarget="15.0"
+else
+	deploymentTarget="17.5"
+fi
 mkdir ${platform}
 cd ${platform}
 
-cmake ${AWS_DIR} -DCMAKE_TOOLCHAIN_FILE=${IOS_CMAKE_DIR}/ios.toolchain.cmake -DPLATFORM=${platform} -DBUILD_ONLY="cognito-idp" -G Xcode -DCMAKE_INSTALL_PREFIX=${AWS_BUILD_DIR}/install/${platform} -DUSE_CRT_HTTP_CLIENT=ON -DDEPLOYMENT_TARGET=18.0 -DFORCE_SHARED_CRT=OFF -DBUILD_SHARED_LIBS=OFF -DCPP_STANDARD=17 -DTARGET_ARCH=apple -DHAS_MOUTLINE_ATOMICS=OFF || { (>&2 echo "CMake configuration failed for platform ${platform}") ; exit 1; }
+cmake ${AWS_DIR} -DCMAKE_TOOLCHAIN_FILE=${IOS_CMAKE_DIR}/ios.toolchain.cmake -DPLATFORM=${platform} -DBUILD_ONLY="cognito-idp" -G Xcode -DCMAKE_INSTALL_PREFIX=${AWS_BUILD_DIR}/install/${platform} -DUSE_CRT_HTTP_CLIENT=ON -DDEPLOYMENT_TARGET=${deploymentTarget} -DFORCE_SHARED_CRT=OFF -DBUILD_SHARED_LIBS=OFF -DCPP_STANDARD=17 -DTARGET_ARCH=apple -DHAS_MOUTLINE_ATOMICS=OFF || { (>&2 echo "CMake configuration failed for platform ${platform}") ; exit 1; }
 
 cmake --build . --config Release || { (>&2 echo "Build failed for platform ${platform}"); exit 1; }
 
