@@ -1,5 +1,4 @@
 # Breathing and Exhaling: Building documentation for C++ with Doxygen and Sphinx
-<!-- ![Flow chart](images/flow1.png) -->
 *Z. M. Williams - 22nd February 2025*
 
 "Fantastic, I've just finished this extensive project.

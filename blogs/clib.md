@@ -6,10 +6,10 @@ I have recently been trying to create a
 [AWS API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
 to retreive real-time bus locations.
 I have created a C++ library 
-[OpenID repository](https://github.com/zwill22/OpenID.git)
+[OpenID](https://github.com/zwill22/OpenID.git)
 to handle authorisation requests in order to access the
 API. This library uses the
-[AWS-SDK-CPP](https://aws.amazon.com/developer/language/cpp)
+[AWS-SDK-CPP library](https://aws.amazon.com/developer/language/cpp)
 to interact with the server.
 
 However, in order to use this in my app, I need to create a C

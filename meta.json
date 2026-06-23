@@ -1,0 +1,31 @@
+{
+  "title": "blogs",
+  "author": "Z M Williams",
+  "data": "2026-06-23",
+  "contents": [
+    {
+      "file": "clib.md",
+      "title": "Creating a Swift interface to a C++ library",
+      "date": "2024-12-20",
+      "image": "thumbnails/cpp_swift.png",
+      "description": "Graphic showing C++ going to Swift directly and via C",
+      "blurb": "I have recently been trying to create a new iOS app to track Bus locations in real-time. This app uses an AWS API Gateway to retreive real-time bus locations. I have created a C++ library OpenID to handle authorisation requests in order to access the API. This library uses the AWS-SDK-CPP library to interact with the server."
+    },
+    {
+      "file": "docs.md",
+      "title": "Breathing and Exhaling: Building documentation for C++ with Doxygen and Sphinx",
+      "date": "2025-02-22",
+      "image": "thumbnails/sphinx_doc1.png",
+      "description": "Image showing ReadTheDocs style documentation for example C++ code",
+      "blurb": "\"Fantastic, I've just finished this extensive project. Now all I have to do is document it!\" I thought after pushing the latest version of my latest C++ project. Needless to say, it is not that simple (or is it)."
+    },
+    {
+      "file": "linking.md",
+      "title": "Building and linking the AWS-SDK-CPP for iOS and simulator",
+      "date": "2024-12-18",
+      "image": "thumbnails/OpenID.svg",
+      "description": "Flow chart showing how OpenID interacts with the AWS-SDK-CPP to verify identities",
+      "blurb": "I have recently been trying to create a new iOS app to track Bus locations in real-time. The location data is taken from the UK's Bus Open Data Service. Having managed to get the prototype app to load some bus data directly from this service, I decided to use an AWS API Gateway as the access point to the API. At some point I will write a guide to setting this up as it took me a while to figure it out."
+    }
+  ]
+}
