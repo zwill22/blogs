@@ -15,7 +15,7 @@
       "file": "docs.md",
       "title": "Breathing and Exhaling: Building documentation for C++ with Doxygen and Sphinx",
       "date": "2025-02-22",
-      "image": "thumbnails/sphinx_doc1.png",
+      "image": "blogs/images/sphinx_doc1.png",
       "description": "Image showing ReadTheDocs style documentation for example C++ code",
       "blurb": "\"Fantastic, I've just finished this extensive project. Now all I have to do is document it!\" I thought after pushing the latest version of my latest C++ project. Needless to say, it is not that simple (or is it)."
     },
@@ -31,7 +31,7 @@
       "file": "xml.md",
       "title": "The Remarkable Depths of the XML Rabbit-Hole",
       "date": "2026-07-31",
-      "image": "thumbnails/Rabbit_hole_warning.jpg",
+      "image": "blogs/images/Rabbit_hole_warning.jpg",
       "description": "Image showing a warning sign to watch out for rabbit holes. Behind which is an XSD file, XML file and a regular expression",
       "blurb": "A while ago, I wondered whether there was some Python library to generate fake XML that could be used for testing. After discovering that this wasn't the case, I decided to make my own Python library, which led me down a very deep rabbit hole from which escape may be a problem."
     }
