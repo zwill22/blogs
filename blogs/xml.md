@@ -1,6 +1,6 @@
 # The Remarkable Depths of the XML Rabbit-Hole
 
-![Rabbit-hole Warning](images/Rabbit_hole_warning.png)
+![Rabbit-hole Warning](images/Rabbit_hole_warning.jpg)
 _Zack M Williams, 31st July 2026_
 
 A while ago, I was trying to write tests for the [OpenBusAPI][openbusapi], when need to use some XML input for the test.
