@@ -1,7 +1,7 @@
 # Building and linking the AWS-SDK-CPP for iOS and simulator
+_Z. Williams - 13th December 2024 (Updated 18th December 2024)_
 
 ![Flow chart](images/flow1.png)
-_Z. Williams - 13th December 2024 (Updated 18th December 2024)_
 
 I have recently been trying to create a
 [new iOS app to track Bus locations in real-time](https://github.com/zwill22/BusTracker.git).

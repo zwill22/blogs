@@ -1,7 +1,7 @@
 # Breathing and Exhaling: Building documentation for C++ with Doxygen and Sphinx
+_Z. M. Williams - 22nd February 2025_
 
 ![API Documentation](images/api_doc.png)
-_Z. M. Williams - 22nd February 2025_
 
 "Fantastic, I've just finished this extensive project.
 Now all I have to do is document it!"

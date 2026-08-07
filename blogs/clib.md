@@ -1,5 +1,4 @@
 # Creating a Swift interface to a C++ library
-
 _Z. Williams - 20th December 2024_
 
 I have recently been trying to create a
